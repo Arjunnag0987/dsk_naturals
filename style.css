@@ -1,0 +1,35 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #adf3a4;
+}
+/* Style for the main container to avoid being hidden by the fixed header */
+#main-content-wrapper { /* New wrapper ID for content below header */
+    padding-top: 100px; 
+}
+@media (min-width: 768px) {
+    #main-content-wrapper {
+        padding-top: 80px;
+    }
+}
+/* Custom scrollbar for cart */
+#cart-items-list::-webkit-scrollbar {
+    width: 6px;
+}
+#cart-items-list::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+#cart-items-list::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+/* Style the select dropdown */
+.variant-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23005953'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' fill-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}

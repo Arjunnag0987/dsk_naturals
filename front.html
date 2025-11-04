@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSK Naturals</title>
+
+  <!-- ✅ Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ✅ Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- ✅ Tailwind Theme Customization -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            'dsk-green': '#005953', // Primary Bottle Green
+            'dsk-dark-green': '#004742', // Darker hover
+            'dsk-accent-green': '#007067', // Accent
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="min-h-screen font-inter bg-gray-50">
+
+  <!-- ✅ Message Box -->
+  <div
+    id="message-box"
+    class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-dsk-green text-white px-6 py-3 rounded-full shadow-2xl transition-all duration-300 opacity-0 scale-95 z-50 font-medium"
+    role="alert"
+  >
+    Message Content
+  </div>
+
+  <!-- ✅ Header with Logo & Navigation -->
+  <header id="app-header" class="fixed top-0 left-0 right-0 bg-white shadow-lg z-20">
+    <div class="container mx-auto flex items-center justify-between px-6 py-3">
+      <!-- Logo Section -->
+      <div class="flex items-center space-x-3">
+        <img
+          src="https://res.cloudinary.com/drmgywvk0/image/upload/v1762258495/logo_shpfcb.png"
+          alt="DSK Naturals Logo"
+          class="h-40 w-40"
+        />
+        <span class="text-dsk-green text-xl font-bold">DSK Naturals</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex space-x-8 text-gray-700 font-medium">
+        <a href="#" class="hover:text-dsk-green transition-colors">Home</a>
+        <a href="#" class="hover:text-dsk-green transition-colors">Products</a>
+        <a href="#" class="hover:text-dsk-green transition-colors">About</a>
+        <a href="#" class="hover:text-dsk-green transition-colors">Contact</a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button
+        class="md:hidden text-dsk-green focus:outline-none"
+        onclick="toggleMenu(true)"
+      >
+        <i data-lucide="menu" class="h-6 w-6"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ✅ Mobile Menu Drawer -->
+  <div
+    id="mobile-menu-drawer-overlay"
+    class="fixed inset-0 bg-black bg-opacity-30 z-30 hidden"
+    onclick="toggleMenu(false)"
+  ></div>
+
+  <div
+    id="mobile-menu-drawer"
+    class="fixed top-0 left-0 h-full w-full max-w-xs bg-white shadow-2xl z-40 transform transition-transform duration-300 -translate-x-full"
+  >
+    <div class="p-6 space-y-4">
+      <button
+        onclick="toggleMenu(false)"
+        class="text-gray-500 hover:text-red-600 float-right"
+      >
+        <i data-lucide="x" class="h-6 w-6"></i>
+      </button>
+      <h2 class="text-xl font-bold text-dsk-green mb-6">Menu</h2>
+      <a href="#" class="block text-gray-700 hover:text-dsk-green font-medium">Home</a>
+      <a href="#" class="block text-gray-700 hover:text-dsk-green font-medium">Products</a>
+      <a href="#" class="block text-gray-700 hover:text-dsk-green font-medium">About</a>
+      <a href="#" class="block text-gray-700 hover:text-dsk-green font-medium">Contact</a>
+    </div>
+  </div>
+
+  <!-- ✅ Main Content -->
+  <div id="main-content-wrapper" class="w-full pt-24">
+    <main id="main-content" class="container mx-auto px-4 flex flex-col lg:flex-row">
+      <div id="dynamic-page-content" class="flex-grow lg:w-3/4 p-4">
+        <h1 class="text-3xl font-bold text-dsk-green mb-6">Welcome to DSK Naturals 🌿</h1>
+        <p class="text-gray-700 leading-relaxed">
+          DSK Naturals brings you high-quality natural spices and masalas, carefully
+          crafted from the best ingredients. Experience freshness, purity, and taste
+          that enhance every dish you make.
+        </p>
+        <div class="mt-8">
+          <img
+            src="https://res.cloudinary.com/drmgywvk0/image/upload/w_600,h_400,c_fill,f_auto,q_auto/v1762248774/blackpepper_d8o1m4.webp"
+            alt="Black Pepper Powder"
+            class="rounded-xl shadow-lg"
+          />
+        </div>
+      </div>
+
+      <div id="cart-sidebar-desktop" class="hidden lg:block lg:w-1/4 bg-white shadow-inner p-6">
+        <h2 class="text-xl font-bold text-dsk-green mb-4">Your Cart</h2>
+        <p class="text-gray-500">Cart items will appear here.</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- ✅ Location Modal -->
+  <div
+    id="location-modal-overlay"
+    class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden items-center justify-center p-4"
+  >
+    <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl">
+      <div class="flex justify-between items-center mb-4 border-b pb-3">
+        <h2 class="text-xl font-bold text-gray-900">Choose Your Delivery Area</h2>
+        <button onclick="toggleLocationModal(false)" class="text-gray-500 hover:text-red-600">
+          <i data-lucide="x" class="h-6 w-6"></i>
+        </button>
+      </div>
+      <p class="text-sm text-gray-500 mb-4">
+        Select the nearest location to get 10-minute delivery.
+      </p>
+      <div id="location-options" class="space-y-3"></div>
+    </div>
+  </div>
+
+  <!-- ✅ Mobile Cart Button -->
+  <button
+    id="mobile-cart-button"
+    onclick="toggleCartDrawer(true)"
+    class="fixed bottom-4 right-4 bg-dsk-green text-white p-4 rounded-full shadow-2xl z-30 flex items-center lg:hidden transition-transform duration-300 hover:scale-105"
+    style="display: none;"
+  >
+    <i data-lucide="shopping-cart" class="h-6 w-6"></i>
+    <span
+      id="mobile-cart-count"
+      class="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full hidden"
+      >0</span
+    >
+  </button>
+
+  <!-- ✅ Checkout Modal -->
+  <div
+    id="checkout-modal-overlay"
+    class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4"
+  >
+    <div
+      class="bg-white rounded-2xl w-full max-w-lg p-6 shadow-2xl max-h-[90vh] overflow-y-auto"
+    ></div>
+  </div>
+
+  <!-- ✅ JavaScript -->
+  <script>
+    lucide.createIcons();
+
+    function toggleMenu(open) {
+      const drawer = document.getElementById("mobile-menu-drawer");
+      const overlay = document.getElementById("mobile-menu-drawer-overlay");
+      if (open) {
+        drawer.classList.remove("-translate-x-full");
+        overlay.classList.remove("hidden");
+      } else {
+        drawer.classList.add("-translate-x-full");
+        overlay.classList.add("hidden");
+      }
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
